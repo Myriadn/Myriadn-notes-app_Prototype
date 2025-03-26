@@ -2,7 +2,7 @@
 export default class AddNoteForm extends HTMLElement {
   constructor() {
     super();
-    this.attachShadow({ mode: "open" });
+    this.attachShadow({ mode: 'open' });
     this.shadowRoot.innerHTML = `
           <style>
               form {
@@ -51,10 +51,10 @@ export default class AddNoteForm extends HTMLElement {
           </form>
       `;
 
-    this.form = this.shadowRoot.querySelector("form");
-    this.titleInput = this.shadowRoot.getElementById("title");
-    this.bodyInput = this.shadowRoot.getElementById("body");
-    this.submitButton = this.shadowRoot.querySelector("button");
+    this.form = this.shadowRoot.querySelector('form');
+    this.titleInput = this.shadowRoot.getElementById('title');
+    this.bodyInput = this.shadowRoot.getElementById('body');
+    this.submitButton = this.shadowRoot.querySelector('button');
 
     this.setupValidation();
     this.setupEventListeners();
@@ -67,15 +67,15 @@ export default class AddNoteForm extends HTMLElement {
       this.submitButton.disabled = !(isTitleValid && isBodyValid);
     };
 
-    this.titleInput.addEventListener("input", validate);
-    this.bodyInput.addEventListener("input", validate);
+    this.titleInput.addEventListener('input', validate);
+    this.bodyInput.addEventListener('input', validate);
   }
 
   setupEventListeners() {
-    this.form.addEventListener("submit", (e) => {
+    this.form.addEventListener('submit', (e) => {
       e.preventDefault();
       this.dispatchEvent(
-        new CustomEvent("add-note", {
+        new CustomEvent('add-note', {
           detail: {
             title: this.titleInput.value,
             body: this.bodyInput.value,
