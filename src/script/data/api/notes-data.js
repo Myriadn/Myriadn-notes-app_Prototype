@@ -13,59 +13,81 @@ export class NotesData {
   }
 
   static async addNote(note) {
-    const response = await fetch('https://notes-api.dicoding.dev/v2/notes', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(note),
-    });
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.message || 'Gagal menambah catatan');
-    return data.data;
+    showLoading();
+    try {
+      const response = await fetch('https://notes-api.dicoding.dev/v2/notes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(note),
+      });
+      const data = await response.json();
+      if (!response.ok)
+        throw new Error(data.message || 'Gagal menambah catatan');
+      return data.data;
+    } finally {
+      hideLoading();
+    }
   }
 
   static async deleteNote(id) {
-    const response = await fetch(
-      `https://notes-api.dicoding.dev/v2/notes/${id}`,
-      {
-        method: 'DELETE',
-      }
-    );
-    const data = await response.json();
-    if (!response.ok)
-      throw new Error(data.message || 'Gagal menghapus catatan');
-    return data;
+    showLoading();
+    try {
+      const response = await fetch(
+        `https://notes-api.dicoding.dev/v2/notes/${id}`,
+        { method: 'DELETE' }
+      );
+      const data = await response.json();
+      if (!response.ok)
+        throw new Error(data.message || 'Gagal menghapus catatan');
+      return data;
+    } finally {
+      hideLoading();
+    }
   }
 
   static async unarchiveNote(id) {
-    const response = await fetch(
-      `https://notes-api.dicoding.dev/v2/notes/${id}/unarchive`,
-      { method: 'POST' }
-    );
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.message);
-    return data;
+    showLoading();
+    try {
+      const response = await fetch(
+        `https://notes-api.dicoding.dev/v2/notes/${id}/unarchive`,
+        { method: 'POST' }
+      );
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message);
+      return data;
+    } finally {
+      hideLoading();
+    }
   }
 
   static async archiveNote(id) {
-    const response = await fetch(
-      `https://notes-api.dicoding.dev/v2/notes/${id}/archive`,
-      {
-        method: 'POST',
-      }
-    );
-    const data = await response.json();
-    if (!response.ok)
-      throw new Error(data.message || 'Gagal mengarsipkan catatan');
-    return data;
+    showLoading();
+    try {
+      const response = await fetch(
+        `https://notes-api.dicoding.dev/v2/notes/${id}/archive`,
+        { method: 'POST' }
+      );
+      const data = await response.json();
+      if (!response.ok)
+        throw new Error(data.message || 'Gagal mengarsipkan catatan');
+      return data;
+    } finally {
+      hideLoading();
+    }
   }
 
   static async getArchivedNotes() {
-    const response = await fetch(
-      'https://notes-api.dicoding.dev/v2/notes/archived'
-    );
-    const data = await response.json();
-    if (!response.ok) throw new Error(data.message);
-    return data.data; // Pastikan ini adalah array notes
+    showLoading();
+    try {
+      const response = await fetch(
+        'https://notes-api.dicoding.dev/v2/notes/archived'
+      );
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.message);
+      return data.data;
+    } finally {
+      hideLoading();
+    }
   }
 }
 
