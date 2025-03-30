@@ -26,6 +26,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
+    - run: npm install webpack webpack-cli webpack-dev-server html-webpack-plugin style-loader css-loader --save-dev
+    - run: npm install gsap
+    - run: npm install sweetalert2
+    - run: npm run build
     - run: npm run start-dev
